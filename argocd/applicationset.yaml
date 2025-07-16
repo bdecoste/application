@@ -1,22 +1,22 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: vcluster-pr
+  name: vcluster-argocd-application
   namespace: argocd
 spec:
   generators:
   - pullRequest:
       github:
         owner: bdecoste
-        repo: vcluster-deploy  
+        repo: application
   template:
     metadata:
       name: 'vcluster-{{branch}}-{{number}}'
     spec:
       source:
-        repoURL: https://github.com/bdecoste/vcluster-deploy.git
+        repoURL: https://github.com/bdecoste/vcluster-argocd.git
         targetRevision: main
-        path: instance
+        path: vcluster
         kustomize:
           patches:
             - patch: |-
